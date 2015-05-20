@@ -1,2 +1,2 @@
 # RepCo
-Projet de reprÃ©sentation des connaissances, Licence3-Informatique
+Projet de représentation des connaissances, Licence3-Informatique
