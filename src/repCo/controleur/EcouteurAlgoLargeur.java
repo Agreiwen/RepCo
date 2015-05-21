@@ -23,10 +23,14 @@ public class EcouteurAlgoLargeur implements ActionListener {
 		LargeurDAbord l = new LargeurDAbord();
 		m.affichageLabyrinthe();
 		m.resetFiltre();
+		m.resetTailleHistorique();
 		m.setHistorique(new Historique());
+		m.setTempsDepart(System.currentTimeMillis());
 		IJeu j = l.existeChemin(m.getLabyrinthe(), m.getHistorique());
+		m.setTempsArrivee(System.currentTimeMillis());
 		m.colorierChemin(j);
 		m.creerFiltre();
+		m.getTailleHistorique();
 		m.miseAJour();
 	}
 

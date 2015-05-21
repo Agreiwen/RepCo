@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -19,20 +20,29 @@ public class VueLabyrinthe extends JPanel implements Observer{
 	protected Modele m;
 	protected JButton jButtonPassage;
 	protected JButton jButtonMur;
+	protected JButton jButtonDepart;
+	protected JButton jButtonArrivee;
+	
+	protected ImageIcon iconPassage = new ImageIcon(VueMenu.class.getResource("/repCo/folder/passage.png"));
+	protected ImageIcon iconMur = new ImageIcon(VueMenu.class.getResource("/repCo/folder/mur.png"));
+	protected ImageIcon iconDepart = new ImageIcon(VueMenu.class.getResource("/repCo/folder/depart.png"));
+	protected ImageIcon iconArrivee = new ImageIcon(VueMenu.class.getResource("/repCo/folder/arrivee.png"));
+	protected ImageIcon iconHistorique = new ImageIcon(VueMenu.class.getResource("/repCo/folder/historique.png"));
+	protected ImageIcon iconChemin = new ImageIcon(VueMenu.class.getResource("/repCo/folder/chemin.png"));
 
 	public VueLabyrinthe(Modele mod) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.m = mod;
 		m.addObserver(this);
-		this.setPreferredSize(new Dimension(500,600));
+		this.setPreferredSize(new Dimension(600,600));
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		if(m.isInitialise()){
-            this.setLayout(new GridLayout(m.getHauteur(), m.getLargeur()));
+            this.setLayout(new GridLayout(m.getHauteur(), m.getLargeur(), 0, 0));
             m.setInitialise(false);
         }
 		this.removeAll();
@@ -40,35 +50,47 @@ public class VueLabyrinthe extends JPanel implements Observer{
             for(int j = 0; j < m.getLargeur(); j++){
             	if(m.getTableauFiltre()[i][j] == Filtre.CHEMIN && (m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.ARRIVEE && m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.DEPART && m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.MUR )){
             		JButton chemin = new JButton();
-            		chemin.setBackground(Color.BLUE);
+            		chemin.setIcon(iconChemin);
+            		chemin.setContentAreaFilled(false);
+            		chemin.setFocusPainted(false);
             		chemin.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
             		this.add(chemin);
             	}else if(m.getTableauFiltre()[i][j] == Filtre.HISTORIQUE && (m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.ARRIVEE && m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.DEPART && m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.MUR)){
             		JButton historique = new JButton();
-            		historique.setBackground(Color.magenta);
+            		historique.setIcon(iconHistorique);
+            		historique.setContentAreaFilled(false);
+            		historique.setFocusPainted(false);
             		historique.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
             		this.add(historique);
             	}else{
             		if(m.getLabyrinthe().getJeu()[i][j].getTypeMap() == TypeMap.MUR){
-                		JButton mur = new JButton();
-                		mur.setBackground(Color.BLACK);
-                		mur.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-                		this.add(mur);
+            			jButtonMur = new JButton();
+            			jButtonMur.setIcon(iconMur);
+            			jButtonMur.setContentAreaFilled(false);
+            			jButtonMur.setFocusPainted(false);
+            			jButtonMur.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
+                		this.add(jButtonMur);
                 	}else if(m.getLabyrinthe().getJeu()[i][j].getTypeMap() == TypeMap.PASSAGE){
-                		JButton passage = new JButton();
-                		passage.setBackground(Color.WHITE);
-                		passage.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-                		this.add(passage);
+                		jButtonPassage = new JButton();
+                		jButtonPassage.setIcon(iconPassage);
+                		jButtonPassage.setContentAreaFilled(false);
+                		jButtonPassage.setFocusPainted(false);
+                		jButtonPassage.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
+                		this.add(jButtonPassage);
                 	}else if(m.getLabyrinthe().getJeu()[i][j].getTypeMap() == TypeMap.DEPART){
-                		JButton passage = new JButton();
-                		passage.setBackground(Color.RED);
-                		passage.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-                		this.add(passage);
+                		jButtonDepart = new JButton();
+                		jButtonDepart.setIcon(iconDepart);
+                		jButtonDepart.setContentAreaFilled(false);
+                		jButtonDepart.setFocusPainted(false);
+                		jButtonDepart.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
+                		this.add(jButtonDepart);
                 	}else if(m.getLabyrinthe().getJeu()[i][j].getTypeMap() == TypeMap.ARRIVEE){
-                		JButton passage = new JButton();
-                		passage.setBackground(Color.GREEN);
-                		passage.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-                		this.add(passage);
+                		jButtonArrivee = new JButton();
+                		jButtonArrivee.setIcon(iconArrivee);
+                		jButtonArrivee.setContentAreaFilled(false);
+                		jButtonArrivee.setFocusPainted(false);
+                		jButtonArrivee.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
+                		this.add(jButtonArrivee);
                 	}
             	}
             	

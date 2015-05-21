@@ -19,6 +19,33 @@ public class Modele extends Observable implements Runnable{
 	protected Filtre[][] tableauFiltre;
 	protected Historique h;
 	protected ArrayList<Carte> chemin;
+	protected long TempsDepart;
+	protected long TempsArrivee;
+	protected int tailleHistorique;
+
+	public long getTempsDepart() {
+		return TempsDepart;
+	}
+
+	public void setTempsDepart(long tempsDepart) {
+		TempsDepart = tempsDepart;
+	}
+
+	public long getTempsArrivee() {
+		return TempsArrivee;
+	}
+
+	public void setTempsArrivee(long tempsArrivee) {
+		TempsArrivee = tempsArrivee;
+	}
+	
+	public int getTailleHistorique(){
+		return h.getHistorique().size();
+	}
+	
+	public void resetTailleHistorique(){
+		tailleHistorique = 0;
+	}
 
 	public Modele(){
     	h = new Historique();

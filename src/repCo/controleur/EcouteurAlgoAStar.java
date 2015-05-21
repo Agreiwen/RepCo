@@ -7,8 +7,6 @@ import repCo.modele.Modele;
 import repCo.recherche.AStar;
 import repCo.recherche.Historique;
 import repCo.recherche.IJeu;
-import repCo.recherche.LargeurDAbord;
-import repCo.recherche.ProfondeurDAbord;
 
 public class EcouteurAlgoAStar implements ActionListener {
 	
@@ -25,10 +23,14 @@ public class EcouteurAlgoAStar implements ActionListener {
 		AStar a = new AStar();
 		m.affichageLabyrinthe();
 		m.resetFiltre();
+		m.resetTailleHistorique();
 		m.setHistorique(new Historique());
+		m.setTempsDepart(System.currentTimeMillis());
 		IJeu j = a.existeChemin(m.getLabyrinthe(), m.getHistorique());
+		m.setTempsArrivee(System.currentTimeMillis());
 		m.colorierChemin(j);
 		m.creerFiltre();
+		m.getTailleHistorique();
 		m.miseAJour();
 	}
 

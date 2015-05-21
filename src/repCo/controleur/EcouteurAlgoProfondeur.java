@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import repCo.modele.Modele;
 import repCo.recherche.Historique;
 import repCo.recherche.IJeu;
-import repCo.recherche.LargeurDAbord;
 import repCo.recherche.ProfondeurDAbord;
 
 public class EcouteurAlgoProfondeur implements ActionListener {
@@ -24,11 +23,14 @@ public class EcouteurAlgoProfondeur implements ActionListener {
 		ProfondeurDAbord p = new ProfondeurDAbord();
 		m.affichageLabyrinthe();
 		m.resetFiltre();
+		m.resetTailleHistorique();
 		m.setHistorique(new Historique());
-		//m.affichageFiltre();
+		m.setTempsDepart(System.currentTimeMillis());
 		IJeu j = p.existeChemin(m.getLabyrinthe(), m.getHistorique());
+		m.setTempsArrivee(System.currentTimeMillis());
 		m.colorierChemin(j);
 		m.creerFiltre();
+		m.getTailleHistorique();
 		m.miseAJour();
 	}
 
