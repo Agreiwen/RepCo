@@ -20,18 +20,9 @@ public class EcouteurAlgoAStar implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		AStar a = new AStar();
-		m.affichageLabyrinthe();
-		m.resetFiltre();
-		m.resetTailleHistorique();
-		m.setHistorique(new Historique());
-		m.setTempsDepart(System.currentTimeMillis());
-		IJeu j = a.existeChemin(m.getLabyrinthe(), m.getHistorique());
-		m.setTempsArrivee(System.currentTimeMillis());
-		m.colorierChemin(j);
-		m.creerFiltre();
-		m.getTailleHistorique();
-		m.miseAJour();
+		m.setAlgo(1);
+		Thread t = new Thread((Runnable)m, "Traitement-labyrinthe");
+		t.start() ;
 	}
 
 }

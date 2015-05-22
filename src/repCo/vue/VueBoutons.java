@@ -64,10 +64,9 @@ public class VueBoutons extends JPanel implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		float temps = (float)(m.getTempsArrivee()-m.getTempsDepart())/1000;
 		JLabelLargeur.setText("Largeur : "+m.getLargeur());
 		JLabelHauteur.setText("Hauteur : "+m.getHauteur());
-		JLabelTemps.setText("Temps : "+temps);
+		JLabelTemps.setText("Temps : "+m.getTemps());
 		JLabelEtats.setText("Etats : "+m.getTailleHistorique());
 	}
 

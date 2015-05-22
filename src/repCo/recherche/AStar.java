@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import repCo.modele.Labyrinthe;
+import repCo.modele.Modele;
 
 public class AStar implements IRecherche {
-
-    public AStar(){
 	
+	protected Modele m;
+
+    public AStar(Modele mod){
+    	this.m = mod;
     }
 
     public IJeu existeChemin(IJeu i, Historique h) {
@@ -28,6 +31,13 @@ public class AStar implements IRecherche {
 					boolean dansFermerOuOuvert = ( listFermer.contains(fils) || listOuverte.contains(fils) );
 					if(!dansFermerOuOuvert){
 						h.ajouterHistorique(fils);
+						m.creerFiltreHistorique();
+						try {
+							Thread.sleep(200);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						fils.setPere((Labyrinthe) fMinimum);
 						listOuverte.add(fils);
 					}

@@ -5,8 +5,11 @@ import java.util.Observable;
 
 import repCo.modele.Carte.TypeMap;
 import repCo.modele.Labyrinthe.Filtre;
+import repCo.recherche.AStar;
 import repCo.recherche.Historique;
 import repCo.recherche.IJeu;
+import repCo.recherche.LargeurDAbord;
+import repCo.recherche.ProfondeurDAbord;
 
 public class Modele extends Observable implements Runnable{
 	
@@ -22,6 +25,43 @@ public class Modele extends Observable implements Runnable{
 	protected long TempsDepart;
 	protected long TempsArrivee;
 	protected int tailleHistorique;
+	protected boolean run = false;
+	protected boolean nouveau = false;
+	protected int algo;
+	protected float temps;
+	
+	public float getTemps() {
+		return temps;
+	}
+
+	public void setTemps(float temps) {
+		this.temps = temps;
+		this.miseAJour();
+	}
+
+	public int getAlgo() {
+		return algo;
+	}
+
+	public void setAlgo(int algo) {
+		this.algo = algo;
+	}
+
+	public boolean isNouveau() {
+		return nouveau;
+	}
+
+	public void setNouveau(boolean nouveau) {
+		this.nouveau = nouveau;
+	}
+
+	public boolean isRun() {
+		return run;
+	}
+
+	public void setRun(boolean run) {
+		this.run = run;
+	}
 
 	public long getTempsDepart() {
 		return TempsDepart;
@@ -100,7 +140,65 @@ public class Modele extends Observable implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		//Lancement du tri
+		switch(algo){
+		case 1:
+			this.setTempsDepart(System.currentTimeMillis());
+			this.setRun(true);
+			AStar a = new AStar(this);
+			this.affichageLabyrinthe();
+			this.resetFiltre();
+			this.resetTailleHistorique();
+			this.setHistorique(new Historique());
+			IJeu j = a.existeChemin(this.getLabyrinthe(), this.getHistorique());
+			this.colorierChemin(j);
+			//this.creerFiltre();
+			this.getTailleHistorique();
+			this.setRun(false);
+			this.miseAJour();
+			this.creerFiltreChemin();
+			this.setTempsArrivee(System.currentTimeMillis());
+			float temps1 = (float)(this.getTempsArrivee()-this.getTempsDepart())/1000;
+			this.setTemps(temps1);
+			break;
+		case 2:
+			this.setTempsDepart(System.currentTimeMillis());
+			this.setRun(true);
+			LargeurDAbord l = new LargeurDAbord(this);
+			this.affichageLabyrinthe();
+			this.resetFiltre();
+			this.resetTailleHistorique();
+			this.setHistorique(new Historique());
+			IJeu k = l.existeChemin(this.getLabyrinthe(), this.getHistorique());
+			this.colorierChemin(k);
+			//this.creerFiltre();
+			this.getTailleHistorique();
+			this.setRun(false);
+			this.miseAJour();
+			this.creerFiltreChemin();
+			this.setTempsArrivee(System.currentTimeMillis());
+			float temps2 = (float)(this.getTempsArrivee()-this.getTempsDepart())/1000;
+			this.setTemps(temps2);
+			break;
+		case 3:
+			this.setTempsDepart(System.currentTimeMillis());
+			this.setRun(true);
+			ProfondeurDAbord p = new ProfondeurDAbord(this);
+			this.affichageLabyrinthe();
+			this.resetFiltre();
+			this.resetTailleHistorique();
+			this.setHistorique(new Historique());
+			IJeu c = p.existeChemin(this.getLabyrinthe(), this.getHistorique());
+			this.colorierChemin(c);
+			//this.creerFiltre();
+			this.getTailleHistorique();
+			this.setRun(false);
+			this.miseAJour();
+			this.creerFiltreChemin();
+			this.setTempsArrivee(System.currentTimeMillis());
+			float temps3 = (float)(this.getTempsArrivee()-this.getTempsDepart())/1000;
+			this.setTemps(temps3);
+			break;
+		}
 	}
 	
 	public void affichageLabyrinthe(){
@@ -153,15 +251,20 @@ public class Modele extends Observable implements Runnable{
 		initTableauFiltre();
 	}
 	
-	public void creerFiltre(){
+	public void creerFiltreHistorique(){
 		initTableauFiltre();
 		for (IJeu i : h.getHistorique()){
 			Labyrinthe l = (Labyrinthe)i;
 			tableauFiltre[l.getCarteDepart().getPositionX()][l.getCarteDepart().getPositionY()] = Filtre.HISTORIQUE;
 		}
+		miseAJour();
+	}
+	
+	public void creerFiltreChemin(){
 		for (Carte c : chemin) {
 			tableauFiltre[c.getPositionX()][c.getPositionY()] = Filtre.CHEMIN;
 		}
+		miseAJour();
 	}
 
 	public Filtre[][] getTableauFiltre() {

@@ -29,6 +29,8 @@ public class VueLabyrinthe extends JPanel implements Observer{
 	protected ImageIcon iconArrivee = new ImageIcon(VueMenu.class.getResource("/repCo/folder/arrivee.png"));
 	protected ImageIcon iconHistorique = new ImageIcon(VueMenu.class.getResource("/repCo/folder/historique.png"));
 	protected ImageIcon iconChemin = new ImageIcon(VueMenu.class.getResource("/repCo/folder/chemin.png"));
+	
+	protected JButton[][] tabButton;
 
 	public VueLabyrinthe(Modele mod) {
 		// TODO Auto-generated constructor stub
@@ -42,58 +44,38 @@ public class VueLabyrinthe extends JPanel implements Observer{
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		if(m.isInitialise()){
+			this.removeAll();
             this.setLayout(new GridLayout(m.getHauteur(), m.getLargeur(), 0, 0));
+            tabButton = new JButton[m.getHauteur()][m.getLargeur()];
+            for (int i = 0; i < tabButton.length; i++) {
+				for (int j = 0; j < tabButton[0].length; j++) {
+					tabButton[i][j] = new JButton();
+					this.add(tabButton[i][j]);
+					tabButton[i][j].addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
+					tabButton[i][j].setContentAreaFilled(false);
+            		tabButton[i][j].setFocusPainted(false);
+				}
+			}
             m.setInitialise(false);
         }
-		this.removeAll();
         for(int i = 0; i < m.getHauteur(); i++){
             for(int j = 0; j < m.getLargeur(); j++){
             	if(m.getTableauFiltre()[i][j] == Filtre.CHEMIN && (m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.ARRIVEE && m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.DEPART && m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.MUR )){
-            		JButton chemin = new JButton();
-            		chemin.setIcon(iconChemin);
-            		chemin.setContentAreaFilled(false);
-            		chemin.setFocusPainted(false);
-            		chemin.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-            		this.add(chemin);
+            		// Chemin
+            		tabButton[i][j].setIcon(iconChemin);
             	}else if(m.getTableauFiltre()[i][j] == Filtre.HISTORIQUE && (m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.ARRIVEE && m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.DEPART && m.getLabyrinthe().getJeu()[i][j].getTypeMap() != TypeMap.MUR)){
-            		JButton historique = new JButton();
-            		historique.setIcon(iconHistorique);
-            		historique.setContentAreaFilled(false);
-            		historique.setFocusPainted(false);
-            		historique.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-            		this.add(historique);
+            		tabButton[i][j].setIcon(iconHistorique);
             	}else{
             		if(m.getLabyrinthe().getJeu()[i][j].getTypeMap() == TypeMap.MUR){
-            			jButtonMur = new JButton();
-            			jButtonMur.setIcon(iconMur);
-            			jButtonMur.setContentAreaFilled(false);
-            			jButtonMur.setFocusPainted(false);
-            			jButtonMur.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-                		this.add(jButtonMur);
+            			tabButton[i][j].setIcon(iconMur);
                 	}else if(m.getLabyrinthe().getJeu()[i][j].getTypeMap() == TypeMap.PASSAGE){
-                		jButtonPassage = new JButton();
-                		jButtonPassage.setIcon(iconPassage);
-                		jButtonPassage.setContentAreaFilled(false);
-                		jButtonPassage.setFocusPainted(false);
-                		jButtonPassage.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-                		this.add(jButtonPassage);
+                		tabButton[i][j].setIcon(iconPassage);
                 	}else if(m.getLabyrinthe().getJeu()[i][j].getTypeMap() == TypeMap.DEPART){
-                		jButtonDepart = new JButton();
-                		jButtonDepart.setIcon(iconDepart);
-                		jButtonDepart.setContentAreaFilled(false);
-                		jButtonDepart.setFocusPainted(false);
-                		jButtonDepart.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-                		this.add(jButtonDepart);
+                		tabButton[i][j].setIcon(iconDepart);
                 	}else if(m.getLabyrinthe().getJeu()[i][j].getTypeMap() == TypeMap.ARRIVEE){
-                		jButtonArrivee = new JButton();
-                		jButtonArrivee.setIcon(iconArrivee);
-                		jButtonArrivee.setContentAreaFilled(false);
-                		jButtonArrivee.setFocusPainted(false);
-                		jButtonArrivee.addActionListener(new EcouteurBoutonLabyrinthe(m, i, j));
-                		this.add(jButtonArrivee);
+                		tabButton[i][j].setIcon(iconArrivee);
                 	}
             	}
-            	
             }
         }
         revalidate();

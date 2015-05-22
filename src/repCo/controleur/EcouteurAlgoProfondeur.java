@@ -20,18 +20,9 @@ public class EcouteurAlgoProfondeur implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		ProfondeurDAbord p = new ProfondeurDAbord();
-		m.affichageLabyrinthe();
-		m.resetFiltre();
-		m.resetTailleHistorique();
-		m.setHistorique(new Historique());
-		m.setTempsDepart(System.currentTimeMillis());
-		IJeu j = p.existeChemin(m.getLabyrinthe(), m.getHistorique());
-		m.setTempsArrivee(System.currentTimeMillis());
-		m.colorierChemin(j);
-		m.creerFiltre();
-		m.getTailleHistorique();
-		m.miseAJour();
+		m.setAlgo(3);
+		Thread t = new Thread((Runnable)m, "Traitement-labyrinthe");
+		t.start() ;
 	}
 
 }

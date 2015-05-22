@@ -99,7 +99,14 @@ public class VueMenu extends JMenuBar implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		
+			jMenuAlgo.show(!m.isRun());
+			jMenuConstruire.show(!m.isRun());
+			
+			jMenuAlgo.show(m.isNouveau());
+			jMenuConstruire.show(m.isNouveau());
+			
+			jMenuAlgo.show(m.getLabyrinthe().getCarteDepart() != null && m.getLabyrinthe().getCarteArrivee() != null);
+			
 	}
 
 }

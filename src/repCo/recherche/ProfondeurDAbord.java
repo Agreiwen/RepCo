@@ -2,16 +2,26 @@ package repCo.recherche;
 
 import java.util.Iterator;
 
-public class ProfondeurDAbord implements IRecherche {
+import repCo.modele.Modele;
 
-    public ProfondeurDAbord(){
+public class ProfondeurDAbord implements IRecherche {
 	
-	
+	protected Modele m;
+
+    public ProfondeurDAbord(Modele mod){
+    	this.m = mod;
     }
     
 
     public IJeu existeChemin(IJeu i, Historique h){
     	h.ajouterHistorique(i);
+    	m.creerFiltreHistorique();
+    	try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		boolean fini = false;
 		IJeu res = null;
 		if(i.estFinal()){

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import repCo.modele.Carte;
+import repCo.modele.Modele;
 
 public class LargeurDAbord implements IRecherche{
+	
+	protected Modele m;
 
-	public LargeurDAbord(){
-		
+	public LargeurDAbord(Modele mod){
+		this.m = mod;
 	}
 
 	public IJeu existeChemin(IJeu i, Historique h) {
@@ -29,6 +32,13 @@ public class LargeurDAbord implements IRecherche{
 					if(!noeuds.contains(tmp)){
 						noeuds.add(tmp);
 						h.ajouterHistorique(tmp);
+						m.creerFiltreHistorique();
+						try {
+							Thread.sleep(200);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 			}
