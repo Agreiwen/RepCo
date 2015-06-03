@@ -4,9 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import repCo.modele.Modele;
-import repCo.recherche.Historique;
-import repCo.recherche.IJeu;
-import repCo.recherche.ProfondeurDAbord;
 
 public class EcouteurAlgoProfondeur implements ActionListener {
 	

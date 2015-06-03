@@ -3,7 +3,6 @@ package repCo.vue;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -20,6 +19,7 @@ import repCo.controleur.EcouteurNouveau;
 import repCo.controleur.EcouteurQuitter;
 import repCo.modele.Modele;
 
+@SuppressWarnings("serial")
 public class VueMenu extends JMenuBar implements Observer{
 	
 	protected Modele m;
@@ -96,6 +96,7 @@ public class VueMenu extends JMenuBar implements Observer{
 		jMenuAlgo.add(jMenuItemAStar);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub

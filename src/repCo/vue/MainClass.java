@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import repCo.modele.Modele;
 
+@SuppressWarnings("serial")
 public class MainClass extends JFrame{
 
 	public MainClass(){

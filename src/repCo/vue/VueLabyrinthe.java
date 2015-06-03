@@ -1,6 +1,5 @@
 package repCo.vue;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Observable;
@@ -15,6 +14,7 @@ import repCo.modele.Carte.TypeMap;
 import repCo.modele.Labyrinthe.Filtre;
 import repCo.modele.Modele;
 
+@SuppressWarnings("serial")
 public class VueLabyrinthe extends JPanel implements Observer{
 	
 	protected Modele m;

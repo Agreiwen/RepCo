@@ -1,7 +1,6 @@
 package repCo.recherche;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Historique {
 	

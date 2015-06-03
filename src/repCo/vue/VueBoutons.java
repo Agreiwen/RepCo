@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import repCo.modele.Modele;
 
+@SuppressWarnings("serial")
 public class VueBoutons extends JPanel implements Observer{
 	
 	protected Modele m;

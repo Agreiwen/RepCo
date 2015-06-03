@@ -3,7 +3,6 @@ package repCo.recherche;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import repCo.modele.Carte;
 import repCo.modele.Modele;
 
 public class LargeurDAbord implements IRecherche{
